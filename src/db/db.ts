@@ -1,0 +1,5 @@
+import Dexie, { type EntityTable } from "dexie";
+import type { DailyMetric, Exercise, Phase, ProgramDay, Session, Settings } from "@/domain/types";
+import { days, exercises, phases, settings } from "@/data/seed";
+export class PhysiqueDB extends Dexie { exercises!:EntityTable<Exercise,"id">; days!:EntityTable<ProgramDay,"id">; sessions!:EntityTable<Session,"id">; metrics!:EntityTable<DailyMetric,"date">; phases!:EntityTable<Phase,"id">; settings!:EntityTable<Settings,"id">; constructor(){super("physique-os");this.version(1).stores({exercises:"id,name,primary,active",days:"id",sessions:"id,dayId,startedAt,completedAt",metrics:"date",phases:"id,active",settings:"id"});this.version(2).stores({exercises:"id,name,primary,equipment,active",days:"id",sessions:"id,dayId,startedAt,completedAt",metrics:"date,demo",phases:"id,active",settings:"id"});this.on("populate",()=>this.transaction("rw",this.exercises,this.days,this.phases,this.settings,async()=>{await this.exercises.bulkAdd(exercises);await this.days.bulkAdd(days);await this.phases.bulkAdd(phases);await this.settings.add(settings)}));}}
+export const db=new PhysiqueDB();

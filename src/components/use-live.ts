@@ -1,0 +1,1 @@
+"use client";import { useEffect,useState } from "react";export function useLive<T>(query:()=>Promise<T>,deps:unknown[]=[]){const [data,setData]=useState<T>();useEffect(()=>{let on=true;const run=()=>query().then(x=>on&&setData(x));run();const timer=setInterval(run,700);return()=>{on=false;clearInterval(timer)}},deps);return data}
