@@ -1,0 +1,1 @@
+import {expect,it} from 'vitest';import {validateImport} from '@/domain/validation';it('validates imports',()=>{expect(validateImport({version:2,metrics:[{date:'2025-01-01'}]}).success).toBe(true);expect(validateImport({version:'bad'}).success).toBe(false)});

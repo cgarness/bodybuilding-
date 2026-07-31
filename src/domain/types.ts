@@ -1,0 +1,9 @@
+export type Muscle = "chest"|"upper chest"|"back"|"lats"|"upper back"|"front delts"|"side delts"|"rear delts"|"biceps"|"triceps"|"quads"|"hamstrings"|"glutes"|"calves"|"abs"|"lower back";
+export interface Exercise { id:string; name:string; category:"compound"|"isolation"; equipment:string; primary:Muscle; secondary:Muscle[]; unilateral:boolean; sets:number; repMin:number; repMax:number; rirMin:number; rirMax:number; tempo:string; rest:number; increment:number; notes:string; alternative?:string; active:boolean }
+export interface ProgramDay { id:string; name:string; exerciseIds:string[] }
+export interface SetLog { id:string; weight:number; reps:number; rir:number; warmup:boolean; completed:boolean; notes:string }
+export interface ExerciseLog { exerciseId:string; sets:SetLog[]; pain:Partial<Record<"elbow"|"shoulder"|"lowerBack"|"knee",number>> }
+export interface Session { id:string; dayId:string; startedAt:string; completedAt?:string; logs:ExerciseLog[] }
+export interface DailyMetric { date:string; weight?:number; waist?:number; bodyFat?:number; calories?:number; protein?:number; carbs?:number; fat?:number; fiber?:number; water?:number; steps?:number; cardioMinutes?:number; cardioType?:string; sleep?:number; sleepQuality?:number; energy?:number; hunger?:number; stress?:number; elbowPain?:number; shoulderPain?:number; digestion?:number; notes?:string; demo?:boolean }
+export interface Phase { id:string; name:string; active:boolean; startDate:string; targetDate:string; calories:number; protein:number; fat:number; carbs:number; steps:number; cardioSessions:number; cardioMinutes:number; goalWeight:number; notes:string }
+export interface Settings { id:"settings"; theme:"dark"|"light"; units:"imperial"|"metric"; waterTarget:number; sleepTarget:number; primaryCoefficient:number; secondaryCoefficient:number; showE1rm:boolean; weekStart:number }
